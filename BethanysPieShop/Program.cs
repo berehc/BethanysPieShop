@@ -1,7 +1,12 @@
 // SERVICE REGISTRATION //
 using System.Runtime.CompilerServices;
+using BethanysPieShop.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<ICategoryRepository, MockCategoryRepository>();
+builder.Services.AddScoped<IPieRepository, MockPieRepository>();
 
 builder.Services.AddControllersWithViews(); //enables MVC in my app
 
