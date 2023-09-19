@@ -37,4 +37,6 @@ if(app.Environment.IsDevelopment())
 // this is our endpoint middleware
 app.MapDefaultControllerRoute();
 
+DbInitializer.Seed(app);
+
 app.Run();
