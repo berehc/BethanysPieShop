@@ -21,6 +21,8 @@
             }
         }
 
+        //public IEnumerable<Pie> PiesOfWeek => throw new NotImplementedException();
+
         public Pie? GetPieById(int pieId) => AllPies.FirstOrDefault(p => p.PieId == pieId);
 
         public IEnumerable<Pie> SearchPies(string searchQuery)
