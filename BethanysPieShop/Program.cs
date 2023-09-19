@@ -1,7 +1,7 @@
 // SERVICE REGISTRATION //
 using System.Runtime.CompilerServices;
 using BethanysPieShop.Models;
-
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +10,16 @@ builder.Services.AddScoped<IPieRepository, MockPieRepository>();
 
 builder.Services.AddControllersWithViews(); //enables MVC in my app
 
+//Configuration to use EFCore
+builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
+{
+    options.UseSqlServer(
+        builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
+});
+
 var app = builder.Build();
 
 //SETTING UP MIDDLEWARE //
-
-//app.MapGet("/", () => "Hello World!"); //listens for an incoming request to the root of the application and will return "Hello World"
-
 
 // middleware component that is preconfigured to look for incoming requests for static files, such as a JPEG or CSS file. It will look in that default configured folder wwwroot for static file and return it. It will then also short circuit the request
 app.UseStaticFiles();  
