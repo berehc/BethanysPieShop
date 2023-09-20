@@ -33,9 +33,14 @@ if(app.Environment.IsDevelopment())
 }
 
 
-//middleware to add the ability to be able to navigate to our pages to make sure that ASP:NET Core will be able to handle incoming reuqest correctly. This will set again some defaults used typically in MVC to route to the views that we are going to have.
-// this is our endpoint middleware
+/* middleware to add the ability to be able to navigate to our pages to make sure that ASP:NET Core will be able to handle incoming reuqest correctly. This will set again some defaults used typically in MVC to route to the views that we are going to have.
+ this is our endpoint middleware  {controller=Home}/{action=Index}/{id?} */
 app.MapDefaultControllerRoute();
+
+//MapControllerRoute can be used also
+
+// app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 DbInitializer.Seed(app);
 

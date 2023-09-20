@@ -17,10 +17,20 @@ namespace BethanysPieShop.Controllers
 
         public IActionResult List()
         {
-            PieListViewModel piesListViewModel = new PieListViewModel(_pieRepository.AllPies, "Cheese cakes");
+            PieListViewModel piesListViewModel = new PieListViewModel(_pieRepository.AllPies, "All Pies");
             return View(piesListViewModel);
             //ViewBag.CurrentCategory = "Cheese cakes";
             //return View(_pieRepository.AllPies);
+        }
+
+        public IActionResult Details(int id) 
+        {
+            var pie =_pieRepository.GetPieById(id);
+            if(pie == null)
+            {
+                return NotFound();
+            }
+            return View(pie);
         }
     }
 }
