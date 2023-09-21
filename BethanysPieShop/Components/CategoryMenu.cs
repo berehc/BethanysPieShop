@@ -17,7 +17,5 @@ namespace BethanysPieShop.Components
             var categories = _categoryRepository.AllCategories.OrderBy(c => c.CategoryName);
             return View(categories);
         }
-
-
     }
 }
