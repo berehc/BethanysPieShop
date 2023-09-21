@@ -8,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPieRepository, PieRepository>();
 
+builder.Services.AddScoped<IShoppingCart, ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddControllersWithViews(); //enables MVC in my app
 
 //Configuration to use EFCore
@@ -19,10 +23,12 @@ builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
 
 var app = builder.Build();
 
+
 //SETTING UP MIDDLEWARE //
 
 // middleware component that is preconfigured to look for incoming requests for static files, such as a JPEG or CSS file. It will look in that default configured folder wwwroot for static file and return it. It will then also short circuit the request
-app.UseStaticFiles();  
+app.UseStaticFiles();
+app.UseSession();
 
 
 //diagnostic middleware component that rwill not always show the exception page, but it´s called the DEveloper Exception Page.Contains information only for developers. That Page only will showed if the app is running in a Developer enviroment.
