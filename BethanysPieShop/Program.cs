@@ -13,8 +13,9 @@ builder.Services.AddScoped<IShoppingCart, ShoppingCart>(sp => ShoppingCart.GetCa
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddControllersWithViews(); //enables MVC in my app
 
+builder.Services.AddControllersWithViews(); //enables MVC in my app
+builder.Services.AddRazorPages();
 //Configuration to use EFCore
 builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
 {
@@ -48,7 +49,7 @@ app.MapDefaultControllerRoute();
 
 // app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
+app.MapRazorPages();
 DbInitializer.Seed(app);
 
 app.Run();
