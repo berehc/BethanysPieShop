@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using BethanysPieShop.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,11 @@ builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
 
-builder.Services.AddControllersWithViews(); //enables MVC in my app
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    }); //enables MVC in my app
 builder.Services.AddRazorPages();
 //Configuration to use EFCore
 builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
