@@ -3,8 +3,10 @@ using System.Runtime.CompilerServices;
 using BethanysPieShop.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("BethanysPieShopDbContextConnection") ?? throw new InvalidOperationException("Connection string 'BethanysPieShopDbContextConnection' not found.");
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPieRepository, PieRepository>();
@@ -28,6 +30,9 @@ builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
         builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
 });
 
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<BethanysPieShopDbContext>();
+
 builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
@@ -38,9 +43,10 @@ var app = builder.Build();
 // middleware component that is preconfigured to look for incoming requests for static files, such as a JPEG or CSS file. It will look in that default configured folder wwwroot for static file and return it. It will then also short circuit the request
 app.UseStaticFiles();
 app.UseSession();
+app.UseAuthentication();
 
 
-//diagnostic middleware component that rwill not always show the exception page, but it´s called the DEveloper Exception Page.Contains information only for developers. That Page only will showed if the app is running in a Developer enviroment.
+//diagnostic middleware component that rwill not always show the exception page, but itï¿½s called the DEveloper Exception Page.Contains information only for developers. That Page only will showed if the app is running in a Developer enviroment.
 
 if(app.Environment.IsDevelopment())
 {
