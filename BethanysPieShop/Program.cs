@@ -44,6 +44,7 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseSession();
 app.UseAuthentication();
+app.UseAuthorization();
 
 
 //diagnostic middleware component that rwill not always show the exception page, but it�s called the DEveloper Exception Page.Contains information only for developers. That Page only will showed if the app is running in a Developer enviroment.
